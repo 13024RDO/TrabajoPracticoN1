@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+    #mensaje{
+        margin: 20px;
+        font-size: 50px;
+  }
+</style>
+<body>
+  <h1>Bienvenido!</h1>
+  <p>Ingresa tu nombre:</p>
+  <input type="text" id="nombre" placeholder="Nombre aqui">
+  <button onclick="enviarNombre()">Enviar</button>
+
+  
+  <div id="mensaje"></div>
+
+  <script>
+    function enviarNombre() {
+      const nombre = document.getElementById('nombre').value;
+      const mensaje = document.getElementById("mensaje");
+
+      fetch(`http://localhost:3000/saludo/${nombre}`)
+        .then(res => res.text())
+        .then(data => {
+          mensaje.innerText = data;
+        })
+        .catch(error => {
+          console.error("Error:", error)
+          mensaje.innerText = 'Hubo un error al obtener el saludo';
+        });
+    }
+  </script>
+</body>
+</html>
